@@ -1,0 +1,33 @@
+<!-- <img class="back" src="../../../assets/white-arr.png" (click)="goBack()" alt="">
+<app-create-comment [idPost]= 'this.postId' [comments] ='this.comments'></app-create-comment>
+<section *ngIf='comments' class="comments">
+  <table>
+    <thead>
+      <tr>
+        <th>Сообщение</th>
+        <th>Автор</th>
+        <th>Действие</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let comment of comments">
+      <td>{{comment.message}}</td>
+      <td>
+        <app-user *ngIf="comment.user" [user]="comment.user"></app-user>
+      </td>
+      <td class="action">
+        <img class="icon" src="../../../assets/free-icon-rubbish-bin-1483063.png" (click)="delete(comment.id)"alt="" >
+      </td>
+    </tr>
+  </table>
+</section>
+<ngb-pagination
+  [(page)]="currentPage"
+  [pageSize]="itemPerPage"
+  [collectionSize]="totalItem"
+  (pageChange)="getComments($event)"
+  [maxSize]="5"
+  [rotate]="true"
+  [ellipses]="false"
+  [boundaryLinks]="true"
+>
+</ngb-pagination> -->

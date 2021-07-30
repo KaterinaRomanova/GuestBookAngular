@@ -1,0 +1,90 @@
+<form class="card-item" [formGroup] = "form" (ngSubmit) = "submit()">
+  <h2>Создать аккаунт</h2>
+
+  <div class="alert alert-danger" *ngIf="message">{{message}}</div>
+
+  <div class="form-contr"
+    [ngClass]="{invalid: form.get('name')!.touched && form.get('name')!.invalid}"
+  >
+    <label for="name">Имя:</label>
+    <input type="text" id="name" formControlName="name">
+    <div
+      class="validation"
+      *ngIf="form.get('name')!.touched && form.get('name')!.invalid"
+    >
+      <small *ngIf="form.get('name')!.errors!.required"> Введите имя </small>
+      <small *ngIf="form.get('name')!.errors!.maxlength"> Длинна имени должна быть до
+        {{form.get('name')!.errors!.maxlength.requiredLength}}, текущая длина
+        {{form.get('name')!.errors!.maxlength.actualLength}}
+    </small>
+    </div>
+  </div>
+
+  <div class="form-contr"
+    [ngClass]="{invalid: form.get('email')!.touched && form.get('email')!.invalid}"
+  >
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" formControlName="email">
+    <div
+      *ngIf="form.get('email')!.touched && form.get('email')!.invalid"
+      class="validation"
+    >
+      <small *ngIf="form.get('email')!.errors!.required"> Введите поле email</small>
+      <small *ngIf="form.get('email')!.errors!.email">Поле email, должно быть email</small>
+    </div>
+  </div>
+
+  <div class="form-contr"
+    [ngClass]="{invalid: form.get('password')!.touched && form.get('password')!.invalid}"
+  >
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" formControlName="password">
+    <div
+      class="validation"
+      *ngIf="form.get('password')!.touched && form.get('password')!.invalid"
+    >
+      <small *ngIf="form.get('password')!.errors!.required"> Введите пароль </small>
+      <small *ngIf="form.get('password')!.errors!.minlength"> Длинна пароля должна быть от
+        {{form.get('password')!.errors!.minlength.requiredLength}}, текущая длина
+        {{form.get('password')!.errors!.minlength.actualLength}}
+      </small>
+      <small *ngIf="form.get('password')!.errors!.maxlength"> Длинна пароля должна быть до
+        {{form.get('password')!.errors!.maxlength.requiredLength}}, текущая длина
+        {{form.get('password')!.errors!.maxlength.actualLength}}
+    </small>
+    </div>
+  </div>
+  <div class="form-contr"
+    [ngClass]="{invalid: form.get('confirmPassword')!.touched && form.get('confirmPassword')!.invalid }"
+  >
+    <label for="confirmPassword">Подтвердите пароль:</label>
+    <input type="password" id="confirmPassword" formControlName="confirmPassword">
+    <div
+      class="validation"
+      *ngIf="form.get('confirmPassword')!.touched && form.get('confirmPassword')!.invalid"
+    >
+      <small *ngIf="form.get('confirmPassword')!.errors!.mustMatch"> Пароли не совпадают </small>
+      <small *ngIf="form.get('confirmPassword')!.errors!.required"> Введите пароль </small>
+      <small *ngIf="form.get('confirmPassword')!.errors!.minlength"> Длинна пароля должна быть от
+        {{form.get('confirmPassword')!.errors!.minlength.requiredLength}}, текущая длина
+        {{form.get('confirmPassword')!.errors!.minlength.actualLength}}
+      </small>
+      <small *ngIf="form.get('confirmPassword')!.errors!.maxlength"> Длинна пароля должна быть до
+        {{form.get('confirmPassword')!.errors!.maxlength.requiredLength}}, текущая длина
+        {{form.get('confirmPassword')!.errors!.maxlength.actualLength}}
+    </small>
+    </div>
+  </div>
+  <div class="form-contr"
+    [ngClass]="{invalid: form.get('file')!.invalid}"
+  >
+    <label for="file">Загрузить фото профиля:</label>
+    <input type="file" id="file" formControlName="file" accept="image/jpeg,image/png,image/bmp" (change)="onFileChanged($event)">
+    <div
+      *ngIf="form.get('file')!.touched && form.get('file')!.invalid"
+      class="validation"
+    >
+    </div>
+  </div>
+  <button type="submit" class="btn btn-prime" [disabled]="form.invalid">Войти</button>
+</form>

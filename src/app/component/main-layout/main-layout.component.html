@@ -1,0 +1,24 @@
+<nav class="nav bg-prime">
+  <h1>
+    Guest Book
+  </h1>
+  <ul >
+    <li *ngIf="auth.isAuthenticated()" routerLinkActive="active " >
+      <a [routerLink]="['/home']"> Главная</a>
+    </li>
+    <li *ngIf="auth.isAuthenticated()" routerLinkActive="active">
+      <a [routerLink]="['/login']" href="#" (click)="logout()">Выход</a>
+    </li>
+    <li *ngIf="!auth.isAuthenticated()" routerLinkActive="active">
+      <a [routerLink]="['/login']" href="#" >Вход</a>
+    </li>
+    <li *ngIf="!auth.isAuthenticated()" routerLinkActive="active">
+      <a [routerLink]="['/register']" href="#" >Регистрация</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+

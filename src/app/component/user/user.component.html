@@ -1,0 +1,6 @@
+<div class="user-layout">
+  <img *ngIf="user.avatar" src={{user.avatar}} alt="">
+  <img *ngIf="!user.avatar" src='../../../../assets/user.png' alt="">
+  <p>{{user!.name}}</p>
+  <a href='mailto:'>{{user!.email}}</a>
+</div>

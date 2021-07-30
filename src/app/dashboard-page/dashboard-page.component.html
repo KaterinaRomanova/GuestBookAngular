@@ -1,0 +1,36 @@
+<app-create-post [posts]='posts'></app-create-post>
+<table>
+  <thead>
+    <tr>
+      <th>Заголовок</th>
+      <th>Сообщение</th>
+      <th>Автор</th>
+      <th>Действие</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let post of posts" >
+      <td>{{post.title}}</td>
+      <td>{{post.message}}</td>
+      <td>
+        <app-user *ngIf="post.user" [user]="post.user"></app-user>
+      </td>
+      <td class="action">
+        <button class="btn" [routerLink]="['/posts', post.id]" (click)="setPostUser(post)">Посмотреть отзывы</button>
+        <img *ngIf="(post.user!.email === emailCurrentUser) || isAdmin == true" class="icon" src="../../../assets/free-icon-rubbish-bin-1483063.png" alt="" (click)="delete(post.id)">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ngb-pagination
+  [(page)]="currentPage"
+  [pageSize]="itemPerPage"
+  [collectionSize]="totalItem"
+  (pageChange)="getPosts($event)"
+  [maxSize]="5"
+  [rotate]="true"
+  [ellipses]="false"
+  [boundaryLinks]="true"
+>
+</ngb-pagination>
+

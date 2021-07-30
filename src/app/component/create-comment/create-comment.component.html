@@ -1,0 +1,15 @@
+<form class="card-item" [formGroup] = "form" (ngSubmit) = "submit()">
+  <h2>Добавление комментария к посту</h2>
+  <div class="form-contr">
+    <label for="message">Заголовок:</label>
+    <input type="text" id="message" formControlName="message">
+    <div
+      *ngIf="form.get('message')!.touched && form.get('message')!.invalid"
+      class="validation"
+    >
+      <small *ngIf="form.get('message')!.errors!.required"> Введите заголовок</small>
+      <small *ngIf="form.get('message')!.errors!.maxlength">Поле заголовок не может быть больше {{form.get('message')!.errors!.maxlength.requiredLength}} символов</small>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-block btn-dark" [disabled]="form.invalid">Добавить</button>
+</form>

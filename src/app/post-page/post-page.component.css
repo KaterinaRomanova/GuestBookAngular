@@ -1,0 +1,31 @@
+.comments{
+  border: 1px solid black;
+}
+
+.back{
+  margin: 0;
+  width: 70px;
+  transform: rotate(90deg);
+  cursor: pointer;
+  padding: 10px;
+}
+
+th, td{
+  text-align: center;
+}
+
+table tr:nth-child(2n){
+  background-color: rgb(15 85 249 / 13%);
+}
+td>*{
+  vertical-align:inherit;
+}
+.btn{
+  font-size: 12px;
+  background-color: rgb(15 85 249 / 13%);
+}
+
+td{
+  word-wrap: break-word;
+  max-width: 132px;
+}

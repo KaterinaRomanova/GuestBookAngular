@@ -1,0 +1,29 @@
+.user-layout{
+  display: block;
+  font-size: 12px;
+  width: 100px;
+  padding: 4px;
+  display: block;
+  margin: auto;
+  text-align: center;
+
+}
+
+.user-layout img{
+  width: 50px;
+}
+
+a{
+  color: black;
+  font-size: 10px;
+}
+
+.user-layout *{
+  text-align: center;
+  cursor:default;
+
+}
+
+img{
+  width: 50px;
+}
