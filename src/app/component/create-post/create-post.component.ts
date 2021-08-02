@@ -34,6 +34,7 @@ export class CreatePostComponent implements OnInit {
       title: this.form.value.title,
       message: this.form.value.message
     }
+    this.form.reset();
     this.postService.addPost(post)
     .subscribe((response)=>{
       // this.posts.unshift(response);

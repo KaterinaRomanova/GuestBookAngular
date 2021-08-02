@@ -40,7 +40,7 @@ export class PostPageComponent implements OnInit, OnDestroy {
       this.itemPerPage = response.meta.per_page
     })
 
-    this.myEventSubscription = this.pusher.stream2$
+    this.myEventSubscription = this.pusher.privateStream$
     .subscribe((data)=>{
       if(data.data.post.user_id === data.data.user_id){return}
       if(this.comments.length > 14){

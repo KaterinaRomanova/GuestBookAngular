@@ -10,15 +10,15 @@ export class PostService {
   constructor(private http: HttpClient) {}
 
   getPosts(numberPage: number): Observable<{data:Post[], links: Links, meta: Meta}>{
-    return this.http.get<{data:Post[], links: Links, meta: Meta}>(`https://guest-book.naveksoft.com/api/v1/posts?page=${numberPage}`)
+    return this.http.get<{data:Post[], links: Links, meta: Meta}>(`posts?page=${numberPage}`)
   };
 
   addPost(post:Post): Observable<Post>{
-    return this.http.post<Post>('https://guest-book.naveksoft.com/api/v1/posts',post)
+    return this.http.post<Post>('posts',post)
   };
 
   deletePost(postId: any): Observable<{response: boolean}>{
-    return this.http.delete<{response: boolean}>(`https://guest-book.naveksoft.com/api/v1/posts/${postId}`)
+    return this.http.delete<{response: boolean}>(`posts/${postId}`)
   };
 
 }

@@ -22,13 +22,6 @@ export class RegisterPageComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    
-    // this.route.queryParams.subscribe((params:Params)=>{
-    //   if(params['loginAgain']){
-    //     this.message="Введите данные"
-    //   }
-    // })
-
       this.form = this.formBuilder.group({
         email:[null, [
           Validators.email,
@@ -69,9 +62,11 @@ export class RegisterPageComponent implements OnInit {
     fd.append('password_confirmation', this.form.value.confirmPassword);
     fd.append('email', this.form.value.email);
     fd.append('password', this.form.value.password);
-    if(this.selectedFile !==null){
+    console.log(this.selectedFile);
+    if(this.selectedFile){
       fd.append('avatar', this.selectedFile, this.selectedFile.name);
     }
+    this.form.reset();
 
     this.auth.register(fd).subscribe(()=>{
       this.form.reset();

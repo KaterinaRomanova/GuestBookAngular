@@ -16,12 +16,28 @@ export class AuthService{
   isAdmin!: string;
   userID!: number ;
 
+  public get token():string | null{
+    return this.tokenValue;
+  };
+
+  public set token(token: string| null){
+    this.tokenValue = token;
+  };
+
+  public get userInfo():number{
+    return this.userID;
+  };
+
+  public set userInfo(user: number){
+    this.userID = user;
+  };
+
   constructor(
     private http: HttpClient
   ){};
 
   register(fd: FormData): Observable<{token: Token, user:User}>{
-    return this.http.post<{token: Token, user:User}>('https://guest-book.naveksoft.com/api/v1/auth/register', fd)
+    return this.http.post<{token: Token, user:User}>('auth/register', fd)
     .pipe(
       tap(
         ({user, token})=>{
@@ -40,7 +56,7 @@ export class AuthService{
   };
 
   login(user: User): Observable<{token: Token, user: User}>{
-    return this.http.post<{token: Token, user:User}>('https://guest-book.naveksoft.com/api/v1/auth/login', user)
+    return this.http.post<{token: Token, user:User}>('auth/login', user)
     .pipe(
       tap(
         ({token, user})=>{
@@ -57,22 +73,6 @@ export class AuthService{
         return throwError(error)
       })
     )
-  };
-
-  public get token():string | null{
-    return this.tokenValue;
-  };
-
-  public set token(token: string| null){
-    this.tokenValue = token;
-  };
-
-  public get userInfo():number{
-    return this.userID;
-  };
-
-  public set userInfo(user: number){
-    this.userID = user;
   };
 
   isAuthenticated(): boolean{

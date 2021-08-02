@@ -1,5 +1,5 @@
 import { AuthService } from 'src/app/services/auth.service';
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import Echo from 'laravel-echo';
 import { Subject, Subscription } from 'rxjs';
 
@@ -11,10 +11,9 @@ import { Subject, Subscription } from 'rxjs';
 export class PusherService {
   userId!: string | null;
   echo!: Echo ;
-  stream1$: Subject<any> = new Subject<any>();
-  stream2$: Subject<any> = new Subject<any>();
-  sub1!: Subscription;
-  sub2!: Subscription;
+  publicStream$: Subject<any> = new Subject<any>();
+  privateStream$: Subject<any> = new Subject<any>();
+
   constructor(private auth: AuthService) {}
 
   connection(){
@@ -40,12 +39,12 @@ export class PusherService {
 
     this.echo.channel("posts").listen("PublicPush", (data: any) => {
       console.log('подписка');
-      this.stream1$.next(data.data);
+      this.publicStream$.next(data.data);
     });
 
     this.echo.private(`user.${this.userId}`).listen("UserPush",(data: any) => {
       console.log('подписка');
-      this.stream2$.next(data.data);
+      this.privateStream$.next(data.data);
     });
   }
 

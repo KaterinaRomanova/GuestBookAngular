@@ -25,7 +25,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private postService: PostService,
-    private route: ActivatedRoute,
     private pusher: PusherService
     ) {}
 
@@ -38,7 +37,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
       this.totalItem = response.meta.total
       this.itemPerPage = response.meta.per_page
     })
-    this.myEventSubscription = this.pusher.stream1$
+    this.myEventSubscription = this.pusher.publicStream$
     .subscribe((data)=>{
       if(this.posts.length > 14){
         this.posts.pop();
