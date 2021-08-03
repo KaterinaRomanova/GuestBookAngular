@@ -10,7 +10,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { CreateCommentComponent } from './component/create-comment/create-comment.component';
 import { PostPageComponent } from './post-page/post-page.component';
