@@ -1,8 +1,5 @@
 import { PusherService } from './../services/pusher.service';
-import { User } from './../interfaces';
-import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Meta, Post } from '../interfaces';
 import { PostService } from '../services/post.service';
 
@@ -30,13 +27,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.emailCurrentUser = localStorage.getItem("user-email");
-    this.postService.getPosts(this.currentPage)
-    .subscribe((response)=>{
-      console.log(response)
-      this.posts = response.data
-      this.totalItem = response.meta.total
-      this.itemPerPage = response.meta.per_page
-    })
+    this.getPosts(this.currentPage)
     this.myEventSubscription = this.pusher.publicStream$
     .subscribe((data)=>{
       if(this.posts.length > 14){
@@ -62,6 +53,9 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.postService.deletePost(postId)
       .subscribe(()=>{
         this.posts = this.posts.filter(p=>p.id !== postId);
+        if(this.posts.length === 0){
+          this.getPosts(this.currentPage)
+        }
       })
   }
 
@@ -69,6 +63,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.postService.getPosts(currentPage)
     .subscribe((response)=>{
       this.posts = response.data
+      this.totalItem = response.meta.total
+      this.itemPerPage = response.meta.per_page
     })
   }
 
