@@ -1,7 +1,7 @@
 import { PusherService } from './pusher.service';
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http"
-import { Observable, throwError } from "rxjs";
+import { BehaviorSubject, Observable, throwError } from "rxjs";
 import { catchError, tap } from 'rxjs/operators';
 import { Token, User } from "../interfaces";
 import Echo from 'laravel-echo';
@@ -11,6 +11,7 @@ import Echo from 'laravel-echo';
   providedIn:'root'
 })
 export class AuthService{
+  subject = new BehaviorSubject <boolean | null> (null)
   private tokenValue: string | null = localStorage.getItem('auth-token');
   errorMessage:string = '';
   currentUser!: User ;
@@ -35,8 +36,7 @@ export class AuthService{
   };
 
   constructor(
-    private http: HttpClient,
-    private pusher: PusherService
+    private http: HttpClient
   ){};
 
   register(fd: FormData): Observable<{token: Token, user:User}>{;
@@ -45,8 +45,6 @@ export class AuthService{
       tap(
         ({user, token})=>{
           this.setInfo(token, user)
-          this.echo = this.pusher.conected();
-          console.log(this.echo)
         }
       ),
       catchError((error)=>{
@@ -61,7 +59,6 @@ export class AuthService{
       tap(
         ({token, user})=>{
           this.setInfo(token, user)
-          this.echo = this.pusher.conected()
         }
       ),
       catchError((error)=>{
@@ -77,6 +74,7 @@ export class AuthService{
     localStorage.setItem("user-email", user.email);
     localStorage.setItem("is-admin", this.isAdmin);
     localStorage.setItem("user-id", String(user.id));
+    this.subject.next(true);
   }
 
   isAuthenticated(): boolean{
@@ -84,9 +82,10 @@ export class AuthService{
   };
 
   logout(){
-    this.pusher.disconected(this.echo);
+    this.subject.next(false)
     this.tokenValue = '';
     localStorage.clear();
+    
   };
 
 }

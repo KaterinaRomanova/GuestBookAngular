@@ -8,9 +8,6 @@ import { Subject } from 'rxjs';
 })
 
 export class PusherService {
-  connection(): Echo {
-    throw new Error('Method not implemented.');
-  }
   userId!: string | null;
   echo!: Echo;
   publicStream$: Subject<any> = new Subject<any>();
@@ -39,7 +36,6 @@ export class PusherService {
     });
     this.userId = localStorage.getItem("user-id");
     this.echo.channel("posts").listen("PublicPush", (data: any) => {
-      console.log('подписка');
       this.publicStream$.next(data.data);
     });
 
@@ -47,13 +43,11 @@ export class PusherService {
       console.log('user', this.userId);
       this.privateStream$.next(data.data);
     });
-    return this.echo;
   }
 
-  disconected(echo: Echo){
-    echo.channel("posts").stopListening("PublicPush");
-    console.log(localStorage.getItem("user-id"))
-    echo.private(`user.${localStorage.getItem("user-id")}`).stopListening("UserPush");
+  disconected(){
+    this.echo.channel("posts").stopListening("PublicPush");
+    this.echo.private(`user.${localStorage.getItem("user-id")}`).stopListening("UserPush");
   }
 
 }
